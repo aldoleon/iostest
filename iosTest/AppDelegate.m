@@ -7,6 +7,9 @@
 //
 
 #import "AppDelegate.h"
+#import "StViewController.h"
+#import "HobbiesTableViewController.h"
+
 
 @interface AppDelegate ()
 
@@ -16,7 +19,33 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+   
+    _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    //TabBar and Navigation controllers setup =============================
+   
+    UITabBarController *tbc = [[UITabBarController alloc] init];
+    UINavigationController *navc = [[UINavigationController alloc] init];
+    HobbiesTableViewController *hvc = [[HobbiesTableViewController alloc] init];
+    [hvc setTitle:@"Hobbies"];
+    UIBarButtonItem *backBtn = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
+    hvc.navigationItem.backBarButtonItem = backBtn;
+    
+    [navc pushViewController:hvc animated:NO];
+   
+    UINavigationController *navst = [[UINavigationController alloc] init];
+    StViewController *svc = [[StViewController alloc] init];
+    [svc setTitle:@"Stock"];
+    [navst pushViewController:svc animated:NO];
+    
+    [tbc setViewControllers:[NSArray arrayWithObjects:navc,navst, nil]];
+   
+    _window.backgroundColor = [UIColor whiteColor];
+    [_window makeKeyAndVisible];
+    
+    [_window setRootViewController:tbc];
+   
+   
     return YES;
 }
 
